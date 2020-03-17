@@ -60,7 +60,7 @@ void debug_ctrl(void)
 		printf("chassis_base=%f  Power_buff=%d  USE_cAP = %d\r\n",\
 						cap_info.ChassisCur_Base,\
 						cap_info.ChassisPower_Buff,\
-						cap_info.use_Cap);	  
+						cap_info.cap_is_ok);	  
 		/* monitor */
 		memset(&FPS, 0, sizeof(OFFLINE_COUNT_STRUCT));
 }
@@ -80,9 +80,9 @@ void relay_ctrl(void)
  */
 void current_ctrl(void)
 {
-	if(cap_info.use_Cap != 0)
+	if(cap_info.cap_is_ok&&cap_info.want_use_cap)
 	{
-		if(cap_info.Chassis_Volt * cap_info.ChassisCur_Sum > 2000.0f && cap_info.Cap_Volt > 14.0f)
+		if(cap_info.Chassis_Volt * cap_info.ChassisCur_Sum > cap_info.Chassis_MAX_Power*30 && cap_info.Cap_Volt > 14.0f)
 			DisChargingControl(&cap_info);
 	}
 	else

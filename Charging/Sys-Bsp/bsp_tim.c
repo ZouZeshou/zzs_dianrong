@@ -120,7 +120,7 @@ void ADC2_ctrl(void)
  */
 void relay_ctrl(void)
 {
-	if(cap_info.ChassisPower_Buff <= 40&&Judge_RobotHurtData.hurt_type == 4)
+	if(cap_info.ChassisPower_Buff <= 40&&cap_info.is_over_power)
 	{//如果电容使用过程中，功率缓冲池下降到40以下，立马切断超级电容，不再使用	
 		cap_info.can_use_Cap = 0;
 		HAL_GPIO_WritePin(Relay_GPIO_Port, Relay_Pin, GPIO_PIN_SET);//turn off
@@ -143,7 +143,7 @@ void relay_ctrl(void)
 void current_spd_ctrl(void)
 {
 	if(cap_info.judge_fresh_time >= 3 &&\
-		 cap_info.Chassis_Volt * cap_info.ChassisCur_Sum < 2100.0f)
+		 cap_info.Chassis_Volt * cap_info.ChassisCur_Sum < cap_info.Chassis_MAX_Power*30)
 	{//if the judgesystem is connected and power is less than 70w
 			ChargingControl(&cap_info);
 	}

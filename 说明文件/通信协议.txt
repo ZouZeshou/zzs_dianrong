@@ -1,0 +1,11 @@
+发出的数据：
+id:0x308
+	float_bytes.f = cap_info.Cap_Volt;//电容电压
+	can1_Tx.data[0] = float_bytes.c[0] ;
+	can1_Tx.data[1] = float_bytes.c[1] ;
+	can1_Tx.data[2] = float_bytes.c[2] ;
+	can1_Tx.data[3] = float_bytes.c[3] ;
+	can1_Tx.data[4] = cap_info.can_use_Cap;//电容是否可用
+接收的数据：
+id:0x199
+	cap_info.want_use_cap = can1_rx.data[0]; //是否启用电容（主动放电）

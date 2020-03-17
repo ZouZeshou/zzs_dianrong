@@ -30,12 +30,15 @@ typedef struct{
 	float 		Cap_Volt;
 	float 		Chassis_Volt;
 	float 		Chassis_Power;
+	float     Chassis_MAX_Power;
+	uint16_t ChassisPower_Buff;
+	bool  is_over_power;//是否超功率
 	float 		DisChargingCur_Target;//做pid使用的目标电流值
 	float 		DisChargingCur_Back;//做pid使用的返回电流值， 等于DisChargingCur_Sum
 	uint16_t  adc1_rx_buff[2];
 	uint16_t  adc2_rx_buff[1];
-	uint16_t  ChassisPower_Buff;
-	uint8_t		use_Cap;
+	uint8_t		cap_is_ok;
+	uint8_t		want_use_cap;
 }CHARGING_CTRL_STRUCT;
 
 extern CHARGING_CTRL_STRUCT cap_info;

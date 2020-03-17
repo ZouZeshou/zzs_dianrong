@@ -15,7 +15,6 @@
 //4号 1250
 //3号 1500
 //5号 1250
-#define    CHARGING_POWER_THRESHOLD    2000  //功率限制到77W， 乘以30是因为做PID时都是30倍
 #define		 CHARGING_VOLTAGE						 29.5  //降压充电的电压
 #define    CHARGING_PID_DEBUG					 0
 
@@ -58,7 +57,7 @@ void ChargingControl(CHARGING_CTRL_STRUCT * cap_info)
 	#endif
 	/* 计算目标充电电流 */
 	cap_info->ChargingCur_Target = 
-		(CHARGING_POWER_THRESHOLD - cap_info->Chassis_Volt * cap_info->ChassisCur_Sum) /\
+		(cap_info->Chassis_MAX_Power*30 - cap_info->Chassis_Volt * cap_info->ChassisCur_Sum) /\
 		cap_info->Chassis_Volt;
 	/* 计算pid误差 */
 	charging_cur_pid.errNow = cap_info->ChargingCur_Target - cap_info->ChargingCur_Sum;

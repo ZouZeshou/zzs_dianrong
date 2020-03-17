@@ -52,6 +52,7 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef* hcan)
 				data4bytes.c[3] = can1_rx.data[7];
 				Judge_PowerHeatData.chassis_power = data4bytes.f;
 				cap_info.Chassis_Power = Judge_PowerHeatData.chassis_power ;
+				cap_info.Chassis_MAX_Power = 80-5;
 				FPS.judge++;
 			break;
 			}
@@ -65,6 +66,10 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef* hcan)
 			case 0x111:{
 				Judge_RobotHurtData.armor_id =  can1_rx.data[0];
 				Judge_RobotHurtData.hurt_type =  can1_rx.data[1];
+				if(Judge_RobotHurtData.hurt_type==4)
+					cap_info.is_over_power = 1;
+				else
+					cap_info.is_over_power = 0;
 				break;
 			}
 		}

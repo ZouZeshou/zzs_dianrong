@@ -3,7 +3,6 @@
 
 #include "stm32f4xx_hal.h"
 #include "stdbool.h"
-
 //0x0202 实时功率热量数据
 typedef struct {
 	uint16_t chassis_volt; /* 底盘输出电压 mV */

@@ -51,6 +51,7 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef* hcan)
 				data4bytes.c[3] = can1_rx.data[7];
 				Judge_PowerHeatData.chassis_power = data4bytes.f;
 				cap_info.Chassis_Power = Judge_PowerHeatData.chassis_power ;
+				cap_info.Chassis_MAX_Power = 80 - 5;
 				FPS.judge++;
 			break;
 			}
@@ -67,10 +68,12 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef* hcan)
 				data4bytes.c[2] = can1_rx.data[2];
 				data4bytes.c[3] = can1_rx.data[3];
 				cap_info.Cap_Volt = data4bytes.f; 
+				cap_info.cap_is_ok = can1_rx.data[4];
 			break;
 			}
-			case 0x199:{
-				cap_info.use_Cap = can1_rx.data[0]; 
+			case 0x199:
+			{
+				cap_info.want_use_cap = can1_rx.data[0]; 
 			break;
 			}
 		}

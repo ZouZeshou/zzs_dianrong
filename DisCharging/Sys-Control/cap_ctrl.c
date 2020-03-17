@@ -13,7 +13,6 @@
 #include "tim.h"
 #include "stmgood.h"
 
-#define    DISCHARGING_POWER_THRESHOLD     2000  //功率限制到75W， 乘以30是因为做PID时都是30倍, 大于
 #define    DISCHARGING_PID_DEBUG					 0
 
 PID_AbsoluteType					discharging_cur_pid;
@@ -48,7 +47,7 @@ void DisChargingControl(CHARGING_CTRL_STRUCT * cap_info)
 	#endif
 	/* 计算目标充电电流 */
 	cap_info->DisChargingCur_Target = cap_info->ChassisCur_Sum -\
-																		DISCHARGING_POWER_THRESHOLD / cap_info->Chassis_Volt;
+																		cap_info->Chassis_MAX_Power*30 / cap_info->Chassis_Volt;
 	/* 计算pid误差 */
 	discharging_cur_pid.errNow = cap_info->DisChargingCur_Target -\
 															 cap_info->DisChargingCur_Sum;
